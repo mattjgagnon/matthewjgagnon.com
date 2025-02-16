@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminChapterController;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\ProfileController;
@@ -9,6 +11,8 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // ✅ PUBLIC Routes
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::get('/books/{book:slug}', [BookController::class, 'show'])->name('books.show');
 Route::get('/chapters', [ChapterController::class, 'index'])->name('chapters.index');
 Route::get('/chapters/{chapter}', [ChapterController::class, 'show'])->name('chapters.show');
 Route::get('/inquiry', [InquiryController::class, 'create'])->name('inquiries.create');
@@ -20,7 +24,10 @@ Route::get('/', function () {
 
 // ✅ ADMIN Routes (prefix them with /admin to avoid conflicts)
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
-    Route::resource('chapters', AdminChapterController::class)->names('admin.chapters');
+    Route::resource('books', AdminBookController::class)
+        ->parameters(['books' => 'book:slug'])
+        ->names('admin.books');
+    Route::resource('/chapters', AdminChapterController::class)->names('admin.chapters');
     Route::get('/inquiries', [AdminInquiryController::class, 'index'])->name('admin.inquiries.index');
     Route::get('/inquiries/{inquiry}', [AdminInquiryController::class, 'show'])->name('admin.inquiries.show');
     Route::delete('/inquiries/{inquiry}', [AdminInquiryController::class, 'destroy'])->name('admin.inquiries.destroy');

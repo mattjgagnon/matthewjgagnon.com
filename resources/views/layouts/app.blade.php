@@ -14,17 +14,20 @@
 <body class="bg-darkBg text-darkText font-serif">
 
 <nav class="bg-gray-900 text-white p-4 flex justify-between">
-    <a href="{{ route('chapters.index') }}" class="text-lg font-bold">📖 My Writing</a>
+    <a href="{{ route('books.index') }}" class="text-lg font-bold">📚 Books</a>
     <div>
         @auth
-            <a href="{{ route('admin.chapters.index') }}" class="px-3 hover:text-gray-300">Admin</a>
+            <a href="{{ route('admin.books.index') }}" class="px-3 hover:text-gray-300">Admin</a>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="px-3 hover:text-gray-300">Logout</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
         @else
+            <a href="{{ route('books.index') }}" class="px-3 hover:text-gray-300">Books</a>
+            <a href="{{ route('chapters.index') }}" class="px-3 hover:text-gray-300">Chapters</a>
             <a href="{{ route('login') }}" class="px-3 hover:text-gray-300">Login</a>
         @endauth
     </div>
 </nav>
+
 
 <main class="max-w-3xl mx-auto p-6">
     @yield('content')
