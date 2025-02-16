@@ -3,10 +3,10 @@
 use App\Http\Controllers\Admin\AdminChapterController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\InquiryController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +31,8 @@ Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(func
     Route::get('/inquiries', [AdminInquiryController::class, 'index'])->name('admin.inquiries.index');
     Route::get('/inquiries/{inquiry}', [AdminInquiryController::class, 'show'])->name('admin.inquiries.show');
     Route::delete('/inquiries/{inquiry}', [AdminInquiryController::class, 'destroy'])->name('admin.inquiries.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
 });
 
 Route::get('/dashboard', function () {
