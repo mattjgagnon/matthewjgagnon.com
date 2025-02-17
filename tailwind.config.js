@@ -15,12 +15,12 @@ export default {
         extend: {
             fontFamily: {
                 serif: ["Merriweather", "Georgia", "serif"],
-                // sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 darkBg: "#1e1e1e",
                 darkText: "#e0e0e0",
-                darkAccent: "#bb86fc",
+                darkAccent: "#3add2c",
+                gold: "#D4AF37"
             }
         },
     },

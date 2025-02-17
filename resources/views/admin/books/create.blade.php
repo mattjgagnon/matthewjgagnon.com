@@ -13,6 +13,6 @@
         <label class="block text-gray-300 mt-4">Description</label>
         <textarea name="description" class="w-full p-2 rounded bg-gray-700 text-white">{{ old('description', $book->description ?? '') }}</textarea>
 
-        <button type="submit" class="mt-4 bg-darkAccent text-white px-4 py-2 rounded-lg">Save</button>
+        <button type="submit" class="mt-4 btn-green text-white px-4 py-2 rounded-lg">Save</button>
     </form>
 @endsection

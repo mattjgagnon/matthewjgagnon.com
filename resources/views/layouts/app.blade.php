@@ -5,19 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Matthew J Gagnon | Epic High Fantasy Author')</title>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     @vite('resources/css/app.css')
+    @if(env('GOOGLE_ANALYTICS_ID'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLE_ANALYTICS_ID') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '{{ env('GOOGLE_ANALYTICS_ID') }}');
+        </script>
+    @endif
 </head>
 <body class="bg-black text-gold font-serif">
 
 <nav class="bg-gray-900 text-white p-4 flex justify-between items-center">
     <div class="flex items-center">
-        <img src="{{ asset('images/MatthewJGagnonAuthor.webp') }}" alt="MJG Logo" class="h-12">
-        <span class="ml-3 text-lg font-bold">Matthew J Gagnon | Epic Fantasy Author</span>
+        <a href="/"><img src="{{ asset('images/MatthewJGagnonAuthor.webp') }}" alt="Matthew J Gagnon, Author Logo" class="h-12"></a>
+        <a class="ml-3 text-lg font-bold" href="/">Matthew J Gagnon | Epic Fantasy Author</a>
     </div>
     <div>
-        <a href="{{ route('books.index') }}" class="px-3 hover:text-gray-300">Books</a>
-        <a href="{{ route('chapters.index') }}" class="px-3 hover:text-gray-300">Chapters</a>
-        <a href="{{ route('admin.profile.edit') }}" class="px-3 hover:text-gray-300">Profile</a>
+        @auth
+        <a href="{{ route('admin.books.index') }}" class="px-3 text-gold hover:text-gray-300">Admin/Books</a>
+        <a href="{{ route('admin.chapters.index') }}" class="px-3 text-gold hover:text-gray-300">Admin/Chapters</a>
+        @endauth
+        <a href="{{ route('books.index') }}" class="px-3 text-gold hover:text-gray-300">Books</a>
+        <a href="{{ route('chapters.index') }}" class="px-3 text-gold hover:text-gray-300">Chapters</a>
+        <a href="{{ route('inquiries.create') }}" class="px-3 text-gold hover:text-gray-300">Author Inquiries</a>
+{{--        <a href="{{ route('admin.profile.edit') }}" class="px-3 text-gold hover:text-gray-300">Profile</a>--}}
     </div>
 </nav>
 
@@ -25,10 +41,9 @@
     @yield('content')
 </div>
 
-<footer class="text-center text-gray-400 py-6 bg-gray-900">
-    <p class="text-lg font-bold text-gold">&copy; {{ date('Y') }} Matthew J Gagnon | Epic High Fantasy Author</p>
-    <p>Epic High Fantasy, One Chapter at a Time.</p>
-    <p>This site is a designated family-values-friendly place.</p>
+<footer class="text-center text-gray-400 py-6 bg-gray-900 p-6">
+    <p class="text-sm">&copy; {{ date('Y') }} Matthew J Gagnon | Epic High Fantasy Author</p>
+    <p class="text-sm">This site is a designated <a class="text-gold" href="/family-values" title="What do you mean by family-values?">family-values-friendly</a>.</p>
 </footer>
 
 </body>
