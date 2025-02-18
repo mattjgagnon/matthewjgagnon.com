@@ -20,5 +20,28 @@ body {
 h1.leading-relaxed {
     line-height: 1.4 !important;
 }
+.rule {
+
+}
+.drop-cap {
+    font-family: "Georgia", serif; /* Classic novel font */
+    font-weight: bold;
+    font-size: 4rem; /* Adjust for book-like effect */
+    float: left;
+    line-height: 1;
+    margin-right: 12px;
+    margin-top: 5px;
+    color: #D4AF37; /* Gold color */
+    text-indent: -5px; /* Moves it slightly inward */
+}
+.max-w-md {
+    max-width: 36rem !important;
+}
+.prose p {
+    margin-bottom: 1rem;
+}
+.prose.text-justify {
+    hyphens: auto;
+}
 @tailwind components;
 @tailwind utilities;
