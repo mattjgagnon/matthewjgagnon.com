@@ -27,4 +27,24 @@ class Chapter extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function getPaginatedContent(int $page = 1, int $wordsPerPage = 250): array
+    {
+        $words = preg_split('/\s+/', strip_tags($this->formatted_content));
+        $totalPages = ceil(count($words) / $wordsPerPage);
+
+        $start = ($page - 1) * $wordsPerPage;
+        $content = implode(' ', array_slice($words, $start, $wordsPerPage));
+
+        return [
+            'content' => $content,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+        ];
+    }
+
+    public function getTotalWords(): array|int
+    {
+        return str_word_count(strip_tags($this->formatted_content));
+    }
 }

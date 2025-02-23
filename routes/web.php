@@ -14,13 +14,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book:slug}', [BookController::class, 'show'])->name('books.show');
 Route::get('/chapters', [ChapterController::class, 'index'])->name('chapters.index');
-Route::get('/chapters/{chapter}', [ChapterController::class, 'show'])->name('chapters.show');
+//Route::get('/chapters/{chapter}', [ChapterController::class, 'show'])->name('chapters.show');
 Route::get('/inquiry', [InquiryController::class, 'create'])->name('inquiries.create');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiries.store');
+Route::get('/{book:slug}/chapter/{chapter}/page{page?}', [ChapterController::class, 'show'])->name('chapters.show');
+Route::get('/family-values', function () {
+    return view('pages.family-values');
+})->name('pages.family-values');
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // ✅ ADMIN Routes (prefix them with /admin to avoid conflicts)
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
