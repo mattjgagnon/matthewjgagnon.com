@@ -21,6 +21,9 @@ Route::get('/{book:slug}/chapter/{chapter}/page/{page?}', [ChapterController::cl
 Route::get('/family-values', function () {
     return view('pages.family-values');
 })->name('pages.family-values');
+Route::get('/about-the-author', function () {
+    return view('pages.about-author');
+})->name('pages.about-author');
 
 Route::get('/', function () {
     return view('welcome');

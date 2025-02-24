@@ -17,10 +17,10 @@ export default {
                 serif: ["Merriweather", "Georgia", "serif"],
             },
             colors: {
-                darkBg: "#1e1e1e",
-                darkText: "#e0e0e0",
-                darkAccent: "#3add2c",
-                gold: "#D4AF37"
+                primary: '#003366', // Deep Blue
+                highlight: '#D4AF37', // Gold
+                deep: '#000000', // Black
+                contrast: '#FFFFFF', // White
             }
         },
     },

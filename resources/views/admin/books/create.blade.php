@@ -8,11 +8,11 @@
         @if(isset($book)) @method('PUT') @endif
 
         <label class="block text-gray-300">Title</label>
-        <input type="text" name="title" value="{{ old('title', $book->title ?? '') }}" class="w-full p-2 rounded bg-gray-700 text-white">
+        <input type="text" name="title" value="{{ old('title', $book->title ?? '') }}" class="w-full p-2 rounded bg-gray-700 text-contrast">
 
         <label class="block text-gray-300 mt-4">Description</label>
-        <textarea name="description" class="w-full p-2 rounded bg-gray-700 text-white">{{ old('description', $book->description ?? '') }}</textarea>
+        <textarea name="description" class="w-full p-2 rounded bg-gray-700 text-contrast">{{ old('description', $book->description ?? '') }}</textarea>
 
-        <button type="submit" class="mt-4 btn-green text-white px-4 py-2 rounded-lg">Save</button>
+        <button type="submit" class="mt-4 btn-primary text-contrast px-4 py-2 rounded-lg">Save</button>
     </form>
 @endsection

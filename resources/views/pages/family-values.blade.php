@@ -19,7 +19,7 @@
             <p>&mdash;Matthew J Gagnon</p>
         </div>
 
-        <a href="{{ route('home') }}" class="block mt-6 text-green-600 hover:underline">
+        <a href="{{ route('home') }}" class="block mt-6 text-primary-600 hover:underline">
             ⬅ Back to Home
         </a>
     </main>

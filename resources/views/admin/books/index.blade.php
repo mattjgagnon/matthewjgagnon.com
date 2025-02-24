@@ -2,15 +2,15 @@
 
 @section('content')
     <h1 class="text-3xl font-bold mb-6">Manage Books</h1>
-    <a href="{{ route('admin.books.create') }}" class="btn-green text-white px-4 py-2 rounded-lg">+ Add Book</a>
+    <a href="{{ route('admin.books.create') }}" class="btn-primary text-contrast px-4 py-2 rounded-lg">+ Add Book</a>
 
     @if(session('success'))
-        <div class="bg-green-600 text-white p-3 rounded-lg mt-4">
+        <div class="bg-primary-600 text-contrast p-3 rounded-lg mt-4">
             {{ session('success') }}
         </div>
     @endif
 
-    <table class="w-full bg-gray-800 text-white rounded-lg mt-6">
+    <table class="w-full bg-gray-800 text-contrast rounded-lg mt-6">
         <thead>
         <tr class="bg-gray-700">
             <th class="p-3 text-left">Title</th>

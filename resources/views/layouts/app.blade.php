@@ -18,22 +18,22 @@
         </script>
     @endif
 </head>
-<body class="bg-black text-gold font-serif">
+<body class="bg-black text-highlight font-serif">
 
-<nav class="bg-gray-900 text-white p-4 flex justify-between items-center">
+<nav class="bg-gray-900 text-contrast p-4 flex justify-between items-center">
     <div class="flex items-center">
-        <a href="/"><img src="{{ asset('images/MatthewJGagnonAuthor.webp') }}" alt="Matthew J Gagnon, Author Logo" class="h-12"></a>
-        <a class="ml-3 text-lg font-bold" href="/">Matthew J Gagnon | Epic Fantasy Author</a>
+        <a href="/"><img src="{{ asset('images/MatthewJGagnonAuthor.png') }}" alt="Matthew J Gagnon, Author Logo" class="h-12"></a>
+        <a class="ml-3 text-lg font-bold text-highlight hover:text-gray-300" href="/">Matthew J Gagnon | Epic Fantasy Author</a>
     </div>
     <div>
         @auth
-        <a href="{{ route('admin.books.index') }}" class="px-3 text-gold hover:text-gray-300">Admin/Books</a>
-        <a href="{{ route('admin.chapters.index') }}" class="px-3 text-gold hover:text-gray-300">Admin/Chapters</a>
+        <a href="{{ route('admin.books.index') }}" class="px-3 text-highlight hover:text-gray-300">Admin/Books</a>
+        <a href="{{ route('admin.chapters.index') }}" class="px-3 text-highlight hover:text-gray-300">Admin/Chapters</a>
         @endauth
-        <a href="{{ route('books.index') }}" class="px-3 text-gold hover:text-gray-300">Books</a>
-        <a href="{{ route('chapters.index') }}" class="px-3 text-gold hover:text-gray-300">Chapters</a>
-        <a href="{{ route('inquiries.create') }}" class="px-3 text-gold hover:text-gray-300">Author Inquiries</a>
-{{--        <a href="{{ route('admin.profile.edit') }}" class="px-3 text-gold hover:text-gray-300">Profile</a>--}}
+        <a href="{{ route('books.index') }}" class="px-3 text-highlight hover:text-gray-300">Books</a>
+        <a href="{{ route('chapters.index') }}" class="px-3 text-highlight hover:text-gray-300">Chapters</a>
+        <a href="{{ route('inquiries.create') }}" class="px-3 text-highlight hover:text-gray-300">Author Inquiries</a>
+{{--        <a href="{{ route('admin.profile.edit') }}" class="px-3 text-highlight hover:text-gray-300">Profile</a>--}}
     </div>
 </nav>
 
@@ -43,7 +43,8 @@
 
 <footer class="text-center text-gray-400 py-6 bg-gray-900 p-6">
     <p class="text-sm">&copy; {{ date('Y') }} Matthew J Gagnon | Epic High Fantasy Author</p>
-    <p class="text-sm">This site is a designated <a class="text-gold" href="/family-values" title="What do you mean by family-values?">family-values-friendly</a>.</p>
+    <p class="text-sm"><a href="{{ route('pages.about-author') }}" class="text-highlight">About the Author</a></p>
+    <p class="text-sm">This site is a designated <a class="text-highlight" href="/family-values" title="What do you mean by family-values?">family-values-friendly</a>.</p>
 </footer>
 
 </body>

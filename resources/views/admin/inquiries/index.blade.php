@@ -4,12 +4,12 @@
     <h1 class="text-3xl font-bold mb-6">Author Inquiries</h1>
 
     @if(session('success'))
-        <div class="bg-green-600 text-white p-3 rounded-lg mb-4">
+        <div class="bg-primary-600 text-contrast p-3 rounded-lg mb-4">
             {{ session('success') }}
         </div>
     @endif
 
-    <table class="w-full bg-gray-800 text-white rounded-lg">
+    <table class="w-full bg-gray-800 text-contrast rounded-lg">
         <thead>
         <tr class="bg-gray-700">
             <th class="p-3">Name</th>

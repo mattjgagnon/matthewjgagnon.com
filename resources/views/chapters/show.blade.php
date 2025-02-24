@@ -18,14 +18,21 @@
                 @endif
             </div>
 
-            <hr class="border-t-2 border-gold w-3/4 mx-auto mb-6">
+            <div class="relative flex items-center justify-center my-6">
+                <div class="w-full border-t-2 border-highlight"></div>
+                <span class="absolute px-4 text-deep text-xl font-bold text-highlight">✦</span>
+            </div>
         @endif
 
         <!-- Chapter Content -->
         <div class="prose prose-lg leading-loose text-justify">
             <p>
-                <span class="drop-cap">{{ Str::substr(strip_tags($content), 0, 1) }}</span>
-                {!! Str::substr($content, 1) !!}
+                @if ($currentPage == 1)
+                    <span class="drop-cap">{{ Str::substr(strip_tags($content), 0, 1) }}</span>
+                    {!! Str::substr($content, 1) !!}
+                @else
+                    {!! $content !!}
+                @endif
             </p>
         </div>
 
@@ -34,27 +41,27 @@
             @if($currentPage > 1)
                 @if($prevChapter && $currentPage == 1 + ceil($prevChapter->getTotalWords() / $wordsPerPage))
                     <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $prevChapter->id, 'page' => ceil($prevChapter->getTotalWords() / $wordsPerPage)]) }}"
-                       class="text-black px-4 py-2 rounded-lg hover:underline">
+                       class="text-deep px-4 py-2 rounded-lg hover:underline">
                         ⬅ Previous Chapter
                     </a>
                 @else
                     <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage - 1]) }}"
-                       class="text-black px-4 py-2 rounded-lg hover:underline">
+                       class="text-deep px-4 py-2 rounded-lg hover:underline">
                         ⬅ Previous Page
                     </a>
                 @endif
             @endif
 
-            <span class="text-gray-700">Page {{ $currentPage }}</span>
+            <span class="text-gray-700">{{ $currentPage }}</span>
 
             @if($currentPage < $totalPages)
                 <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage + 1]) }}"
-                   class="text-black px-4 py-2 rounded-lg hover:underline">
+                   class="text-deep px-4 py-2 rounded-lg hover:underline">
                     Next Page ➡
                 </a>
             @elseif($nextChapter)
                 <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $nextChapter->id, 'page' => 1]) }}"
-                   class="text-black px-4 py-2 rounded-lg hover:underline">
+                   class="text-deep px-4 py-2 rounded-lg hover:underline">
                     Next Chapter ➡
                 </a>
             @endif

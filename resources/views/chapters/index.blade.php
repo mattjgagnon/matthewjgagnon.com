@@ -4,7 +4,7 @@
     <h1 class="text-3xl font-bold mb-6">All Chapters</h1>
 
     @foreach($chapters as $chapter)
-        <div class="mb-4 p-4 bg-gray-800 text-white rounded-lg shadow">
+        <div class="mb-4 p-4 bg-gray-800 text-contrast rounded-lg shadow">
             <h2 class="text-xl font-semibold">
                 <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => 1]) }}">
                     {{ $chapter->title }}
