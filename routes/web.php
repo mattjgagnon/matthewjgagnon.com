@@ -17,7 +17,7 @@ Route::get('/chapters', [ChapterController::class, 'index'])->name('chapters.ind
 //Route::get('/chapters/{chapter}', [ChapterController::class, 'show'])->name('chapters.show');
 Route::get('/inquiry', [InquiryController::class, 'create'])->name('inquiries.create');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiries.store');
-Route::get('/{book:slug}/chapter/{chapter}/page{page?}', [ChapterController::class, 'show'])->name('chapters.show');
+Route::get('/{book:slug}/chapter/{chapter}/page/{page?}', [ChapterController::class, 'show'])->name('chapters.show');
 Route::get('/family-values', function () {
     return view('pages.family-values');
 })->name('pages.family-values');

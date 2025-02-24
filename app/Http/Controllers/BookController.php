@@ -15,9 +15,11 @@ class BookController extends Controller
         return view('books.index', compact('books'));
     }
 
-    public function show(Book $book): View|Application|Factory
+    public function show(Book $book)
     {
-        $book->load('chapters');
-        return view('books.show', compact('book'));
+        return view('books.show', [
+            'book' => $book,
+            'chapters' => $book->chapters()->orderBy('id')->get(),
+        ]);
     }
 }

@@ -6,7 +6,7 @@
     @foreach($chapters as $chapter)
         <div class="mb-4 p-4 bg-gray-800 text-white rounded-lg shadow">
             <h2 class="text-xl font-semibold">
-                <a href="{{ route('chapters.show', $chapter) }}" class="text-darkAccent hover:underline">
+                <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => 1]) }}">
                     {{ $chapter->title }}
                 </a>
             </h2>
