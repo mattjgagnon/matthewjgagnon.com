@@ -41,12 +41,12 @@
             @if($currentPage > 1)
                 @if($prevChapter && $currentPage == 1 + ceil($prevChapter->getTotalWords() / $wordsPerPage))
                     <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $prevChapter->id, 'page' => ceil($prevChapter->getTotalWords() / $wordsPerPage)]) }}"
-                       class="text-deep px-4 py-2 rounded-lg hover:underline">
+                       class="text-deep py-2 rounded-lg hover:underline">
                         ⬅ Previous Chapter
                     </a>
                 @else
                     <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage - 1]) }}"
-                       class="text-deep px-4 py-2 rounded-lg hover:underline">
+                       class="text-deep py-2 rounded-lg hover:underline">
                         ⬅ Previous Page
                     </a>
                 @endif
@@ -56,12 +56,12 @@
 
             @if($currentPage < $totalPages)
                 <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage + 1]) }}"
-                   class="text-deep px-4 py-2 rounded-lg hover:underline">
+                   class="text-deep py-2 rounded-lg hover:underline">
                     Next Page ➡
                 </a>
             @elseif($nextChapter)
                 <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $nextChapter->id, 'page' => 1]) }}"
-                   class="text-deep px-4 py-2 rounded-lg hover:underline">
+                   class="text-deep py-2 rounded-lg hover:underline">
                     Next Chapter ➡
                 </a>
             @endif
