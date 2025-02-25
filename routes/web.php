@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\ChapterFeedbackController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,9 @@ Route::get('/family-values', function () {
 Route::get('/about-the-author', function () {
     return view('pages.about-author');
 })->name('pages.about-author');
+Route::post('/{book:slug}/chapter/{chapter}/feedback', [ChapterFeedbackController::class, 'store'])
+    ->where('chapter', '[0-9]+')
+    ->name('chapter.feedback.store');
 
 Route::get('/', function () {
     return view('welcome');
