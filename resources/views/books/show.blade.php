@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-lg mx-auto px-12 py-12 text-gray-300 rounded-lg shadow-lg">
+    <div class="max-w-sm mx-auto px-12 py-12 text-gray-300 rounded-lg shadow-lg">
 
         <h1 class="text-4xl font-bold">{{ $book->title }}</h1>
 
-        <p class="text-lg leading-relaxed text-justify">{{ $book->description }}</p>
+        <p class="text-lg mt-4 leading-relaxed text-justify">{{ $book->description }}</p>
 
         <ul class="mt-4">
             @forelse ($chapters as $chapter)
