@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Chapter;
 use Illuminate\Http\Request;
+use League\CommonMark\CommonMarkConverter;
 
 class ChapterController extends Controller
 {
@@ -16,39 +17,42 @@ class ChapterController extends Controller
 
     public function show(Book $book, Chapter $chapter, Request $request, $page = 1)
     {
-        $wordsPerPage = 250; // Words per page
-        $page = max(1, (int) $page); // Ensure page is at least 1
+        $wordsPerPage = 250;
+        $page = max(1, (int) $page);
 
-        // Get all previous chapters to calculate cumulative page numbers
+        $converter = new CommonMarkConverter();
+        $formattedContent = $converter->convert($chapter->content);
+
+        $totalWords = str_word_count(strip_tags($formattedContent));
+        $totalPagesInChapter = (int) ceil($totalWords / $wordsPerPage);
+
         $previousChapters = $book->chapters()->where('id', '<', $chapter->id)->orderBy('id')->get();
         $previousWords = $previousChapters->sum(fn($ch) => $ch->getTotalWords());
-        $previousPages = ceil($previousWords / $wordsPerPage);
+        $previousPages = (int) ceil($previousWords / $wordsPerPage);
 
-        // Compute current chapter's pagination
-        $totalWords = $chapter->getTotalWords();
-        $totalPagesInChapter = ceil($totalWords / $wordsPerPage);
+        $bookPageNumber = $previousPages + $page - $previousPages;
 
-        // Calculate actual book-wide page number
-        $bookPageNumber = $previousPages + $page;
         $totalBookPages = $previousPages + $totalPagesInChapter;
 
-        // Extract correct content for this page
-        $words = preg_split('/\s+/', strip_tags($chapter->formatted_content));
-        $start = ($page - 1) * $wordsPerPage - $previousWords;
-        $content = implode(' ', array_slice($words, max(0, $start), $wordsPerPage));
+        $words = preg_split('/\s+/', strip_tags($formattedContent, '<p><br>'));
+        $startIndex = max(0, min(($page - 1 - $previousPages) * $wordsPerPage, count($words) - 1));
 
-        // Find next & previous chapters
+        $pagedWords = array_slice($words, $startIndex, $wordsPerPage);
+        $pagedContent = count($pagedWords) > 0 ? implode(' ', $pagedWords) : "";
+
         $nextChapter = $book->chapters()->where('id', '>', $chapter->id)->orderBy('id')->first();
         $prevChapter = $book->chapters()->where('id', '<', $chapter->id)->orderBy('id', 'desc')->first();
 
         return view('chapters.show', [
             'book' => $book,
             'chapter' => $chapter,
-            'content' => $content,
+            'content' => $pagedContent,
             'currentPage' => $bookPageNumber,
             'totalPages' => $totalBookPages,
             'nextChapter' => $nextChapter,
             'prevChapter' => $prevChapter,
+            'previousPages' => $previousPages,
+            'startIndex' => $startIndex,
             'wordsPerPage' => $wordsPerPage,
         ]);
     }

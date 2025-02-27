@@ -4,16 +4,13 @@
 
     <div class="max-w-md mx-auto px-12 py-12 bg-[#FAF3E0] text-gray-900 rounded-lg shadow-lg">
 
-        <!-- Show Header Only If Not First Page -->
         @if ($currentPage > 1)
             <div class="flex justify-between text-sm text-gray-600 mb-4">
                 @if ($currentPage % 2 == 0)
-                    <!-- Verso (Even Page) -> Show Chapter Title -->
                     <span>{{ $chapter->title }}</span>
-                    <span></span> <!-- Keeps alignment -->
+                    <span></span>
                 @else
-                    <!-- Recto (Odd Page) -> Show Book Title -->
-                    <span></span> <!-- Keeps alignment -->
+                    <span></span>
                     <span>{{ $book->title }}</span>
                 @endif
             </div>
@@ -24,53 +21,43 @@
             </div>
         @endif
 
-        <!-- Chapter Content -->
         <div class="prose prose-lg leading-loose text-justify">
             <p>
                 @if ($currentPage == 1)
                     <span class="drop-cap">{{ Str::substr(strip_tags($content), 0, 1) }}</span>
-                    {!! Str::substr($content, 1) !!}
+                    {!! Str::substr($content, 3) !!}
                 @else
                     {!! $content !!}
                 @endif
             </p>
         </div>
 
-        <!-- Pagination Controls -->
         <div class="flex justify-between items-center mt-8">
             @if($currentPage > 1)
-                @if($prevChapter && $currentPage == 1 + ceil($prevChapter->getTotalWords() / $wordsPerPage))
-                    <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $prevChapter->id, 'page' => ceil($prevChapter->getTotalWords() / $wordsPerPage)]) }}"
+                <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage - 1]) }}"
+                   class="text-deep py-2 rounded-lg hover:underline">
+                    ⬅ Previous Page
+                </a>
+            @endif
+
+            <span class="text-gray-700">Page {{ $currentPage }} of {{ $totalPages }}</span>
+
+                @if($currentPage < $totalPages)
+                    <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage + 1]) }}"
                        class="text-deep py-2 rounded-lg hover:underline">
-                        ⬅ Previous Chapter
+                        Next Page ➡
                     </a>
-                @else
-                    <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage - 1]) }}"
+                @elseif($nextChapter)
+                    <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $nextChapter->id, 'page' => $totalPages + 1]) }}"
                        class="text-deep py-2 rounded-lg hover:underline">
-                        ⬅ Previous Page
+                        Next Chapter ➡
                     </a>
                 @endif
-            @endif
-
-            <span class="text-gray-700">{{ $currentPage }}</span>
-
-            @if($currentPage < $totalPages)
-                <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $chapter->id, 'page' => $currentPage + 1]) }}"
-                   class="text-deep py-2 rounded-lg hover:underline">
-                    Next Page ➡
-                </a>
-            @elseif($nextChapter)
-                <a href="{{ route('chapters.show', ['book' => $book->slug, 'chapter' => $nextChapter->id, 'page' => 1]) }}"
-                   class="text-deep py-2 rounded-lg hover:underline">
-                    Next Chapter ➡
-                </a>
-            @endif
         </div>
 
         @if ($currentPage == $totalPages)
-            <!-- Feedback Form (Only Shown on Last Page) -->
             <div class="mt-12 p-6 bg-deep text-contrast rounded-lg">
-                <h2 class="text-2xl font-bold mb-4">Leave Your Feedback</h2>
+                <h2 class="text-2xl font-bold mb-4">Leave Your Chapter Feedback</h2>
 
                 @if(session('success'))
                     <p class="text-green-500 font-bold">{{ session('success') }}</p>
